@@ -1,0 +1,19 @@
+<ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+        <a class="nav-link {% if current_menu == 'Home' %}active{% endif %}" href="{% url 'home' %}">Главная <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link {% if current_menu == 'Книги' %}active{% endif %}" href="{% url 'book-list' %}" tabindex="-1" aria-disabled="true">Книги</a>
+        </li>
+        <!--
+        <li class="nav-item">
+        <a class="nav-link {% if current_menu == 'Журналы' %}active{% endif %}" href="{% url 'journal-list' %}" tabindex="-1" aria-disabled="true">Журналы</a>
+        </li>
+        -->
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Каталог</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+            {% include 'drop_down_menu.html' %}
+        </div>
+        </li>
+</ul>

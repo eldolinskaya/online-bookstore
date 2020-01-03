@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %} 
+
+{% block title %}Главная страница{% endblock %}
+
+{% block body %}
+<h3 class="p-3 mb-2 bg-light text-info"> <i class="fas fa-book-reader"></i> Топ лучших книг по рейтингу Bookstore</h3>
+<div class="container px-lg-8">
+    <div class="row mx-lg-n8" >
+      {%for obj in object_list %}
+      {% if obj.rating > 9.5 %}
+      <div>
+        <table >
+          <thead>
+            <tr>
+              <td>
+                  <div class="col py-3 px-lg-4 bg-white" style="width: 250px; height: 220px; left: 0px;">
+                    <center><a href='/book/{{ obj.pk }}/' ><img src="{{ obj.cover.url }}" width = '120px'> </a>
+                </div>
+              </td>
+            </tr>
+          </thead>
+        </table>
+        <table >
+          <thead >
+            <tr>
+              <td>
+                <div class="col py-3 px-lg-2 bg-bg-white" style="width: 250px; height: 90px; line-height: 0.5em; margin: -3px; text-align: center; left: 0px;">
+                  <p>
+                    <small><small><center><small>{{obj.price}} BYN </small><a href="{% url 'cart:add' obj.pk %}"><i class="fab fa-opencart"></i></a></center></small></small>
+                    <small> <a style="color: black" href='/book/{{ obj.pk }}/' ><small><small>{{obj.author}} <br>"{{obj.name}}" </small></small></a> </small> 
+                  </p>
+                </div> 
+              </td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      {% endif %} 
+      {% endfor %}
+    </div>
+  </div>
+<br><br>
+<h3 class="p-3 mb-2 bg-light text-info"> <i class="fas fa-book-reader"></i> Топ книг из жанра Фантастика</h3>
+<div class="container px-lg-8">
+    <div class="row mx-lg-n8" >
+      {%for obj in object_list %}
+      {% if 'Фантастика' in obj.tag and obj.rating > 9.5%}
+      <div>
+        <table >
+          <thead>
+            <tr>
+              <td>
+                  <div class="col py-3 px-lg-4 bg-white" style="width: 250px; height: 220px; left: 0px;">
+                    <center><a href='/book/{{ obj.pk }}/' ><img src="{{ obj.cover.url }}" width = '120px'> </a>
+                </div>
+              </td>
+            </tr>
+          </thead>
+        </table>
+        <table >
+          <thead >
+            <tr>
+              <td>
+                <div class="col py-3 px-lg-2 bg-bg-white" style="width: 250px; height: 90px; line-height: 0.5em; margin: -3px; text-align: center; left: 0px;">
+                  <p>
+                    <small><small><center><small>{{obj.price}} BYN </small><a href="{% url 'cart:add' obj.pk %}"><i class="fab fa-opencart"></i></a></center></small></small>
+                    <small> <a style="color: black" href='/book/{{ obj.pk }}/' ><small><small>{{obj.author}} <br>"{{obj.name}}" </small></small></a> </small> 
+                  </p>
+                </div> 
+              </td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      {% endif %} 
+      {% endfor %}
+    </div>
+  </div>
+  <br><br>
+  <h3 class="p-3 mb-2 bg-light text-info"> <i class="fas fa-book-reader"></i> Топ книг из жанра Детектив</h3>
+  <div class="container px-lg-8">
+      <div class="row mx-lg-n8" >
+        {%for obj in object_list %}
+        {% if 'Детектив' in obj.tag and obj.rating > 7%}
+        <div>
+          <table >
+            <thead>
+              <tr>
+                <td>
+                    <div class="col py-3 px-lg-4 bg-white" style="width: 250px; height: 220px; left: 0px;">
+                      <center><a href='/book/{{ obj.pk }}/' ><img src="{{ obj.cover.url }}" width = '120px'> </a>
+                  </div>
+                </td>
+              </tr>
+            </thead>
+          </table>
+          <table >
+            <thead >
+              <tr>
+                <td>
+                  <div class="col py-3 px-lg-2 bg-bg-white" style="width: 250px; height: 90px; line-height: 0.5em; margin: -3px; text-align: center; left: 0px;">
+                    <p>
+                      <small><small><center><small>{{obj.price}} BYN </small><a href="{% url 'cart:add' obj.pk %}"><i class="fab fa-opencart"></i></a></center></small></small>
+                      <small> <a style="color: black" href='/book/{{ obj.pk }}/' ><small><small>{{obj.author}} <br>"{{obj.name}}" </small></small></a> </small> 
+                    </p>
+                  </div> 
+                </td>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        {% endif %} 
+        {% endfor %}
+      </div>
+    </div>
+<br><br>
+<h3  class="p-3 mb-2 bg-light text-info"> <i class="fas fa-book-reader"></i> Лучшие книги серии "Топ художественных книг всех времен"</h3>
+<div class="container px-lg-8">
+    <div class="row mx-lg-n8">
+      {%for obj in object_list %}
+      {% if obj.serie.name == 'Топ художественных книг всех времен' and obj.rating > 7.5 %}
+      <div>
+        <table >
+          <thead>
+            <tr>
+              <td>
+                <div class="col py-3 px-lg-4 bg-white" style="width: 250px; height: 220px; left: 0px;">
+                  <center><a href='/book/{{ obj.pk }}/' ><img src="{{ obj.cover.url }}" width = '120px'> </a>
+                </div>
+              </td>
+            </tr>
+          </thead>
+        </table> 
+        <table >
+          <thead>
+            <tr>
+              <td>
+                <div class="col py-3 px-lg-2 bg-bg-white" style="width: 250px; height: 90px; line-height: 0.5em; margin: -3px; text-align: center; left: 0px;">
+                  <p> 
+                    <small><small><center><small>{{obj.price}} BYN </small><a href="{% url 'cart:add' obj.pk %}"><i class="fab fa-opencart"></i></a></center></small></small>
+                    <small> <a style="color: black" href='/book/{{ obj.pk }}/' ><small><small>{{obj.author}} <br>"{{obj.name}}" </small></small></a> </small> 
+                  </p>
+                </div> 
+              </td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      {% endif %} 
+      {% endfor %}  
+    </div>
+  </div>
+<br><br>
+<h3  class="p-3 mb-2 bg-light text-info"> <i class="fas fa-book-reader"></i> Лучшие книги серии "Топ художественной литературы"</h3>
+<div class="container px-lg-8">
+    <div class="row mx-lg-n8">
+      {%for obj in object_list %}
+      {% if obj.serie.name == 'Топ художественной литературы' and obj.rating >= 9 %}
+      <div>
+          <table >
+            <thead>
+              <tr>
+                <td>
+                  <div class="col py-3 px-lg-4 bg-white" style="width: 250px; height: 220px; left: 0px;">
+                    <center><a href='/book/{{ obj.pk }}/' ><img src="{{ obj.cover.url }}" width = '120px'> </a>
+                  </div>
+                </td>
+              </tr>
+            </thead>
+          </table> 
+          <table >
+            <thead>
+              <tr>
+                <td>
+                  <div class="col py-3 px-lg-2 bg-bg-white" style="width: 250px; height: 90px; line-height: 0.5em; margin: -3px; text-align: center; left: 0px;">
+                    <p>
+                      <small><small><center><small>{{obj.price}} BYN </small><a href="{% url 'cart:add' obj.pk %}"><i class="fab fa-opencart"></i></a></center></small></small>
+                      <small> <a style="color: black" href='/book/{{ obj.pk }}/' ><small><small>{{obj.author}} <br>"{{obj.name}}" </small></small></a> </small>
+                    </p>
+                  </div> 
+                </td>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      {% endif %} 
+      {% endfor %}  
+    </div>
+</div>
+{% endblock %}

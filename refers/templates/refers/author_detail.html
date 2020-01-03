@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Выбранный автор
+{% endblock title %}
+
+{% block body %}
+    <h2 class="p-3 mb-2 bg-light text-info"> <center>Автор</center></h2>
+    <h3>{{object.name }}</h3>
+    <pre><small>{{object.descr }}</small></pre>
+{% endblock body %}  

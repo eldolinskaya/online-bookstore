@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title%}
+Корзина для заказа
+{% endblock%}
+
+{% block body %}
+<h2 class="p-3 mb-2 bg-light text-info"><center>Корзина для заказа</center></h2>
+<br>
+<small>
+<h5>Пожалуйста, проверьте Ваш заказ:</h5>
+<br>
+<table class="table table-striped">
+    <thead class="table table-info">
+      <tr>
+        <th scope="col" >Наименование</th>
+        <th scope="col" >Количество</th>
+        <th scope="col">Цена, BYN</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book_in_cart in  cart.books.all %}
+      <tr>
+        <td> <a style="color: black" href='/book/{{ book_in_cart.book.pk }}/'>{{book_in_cart.book.author}} "{{book_in_cart.book.name}}" </a></td>
+        <td> <a style="color: black" href='/cart/add/{{ book_in_cart.book.pk }}/'>{{book_in_cart.quantity}} </a></td>
+        <td> {{book_in_cart.price}} </td>
+      </tr>    
+      {% endfor %}
+    </tbody>
+  </table>
+<h6 class="p-2 mb-1 bg-light">Сумма заказа: {{cart.total_price}} BYN</h6></small>
+<br>
+<a class="btn btn-outline-info btn-sm" href="{% url 'book-list' %}" role="button"><small>Добавить в корзину</small></a>
+<a class="btn btn-outline-info btn-sm" href="{% url 'order:create' %}" role="button"><small>Оформить заказ</small></a> 
+
+
+{% endblock%}

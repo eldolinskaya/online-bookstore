@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Список журналов
+{% endblock title %}
+
+{% block body %}
+<h1>Журналы</h1>
+<table class="table table-striped">
+  <thead class="table table-info">
+    <tr>
+    <th scope="col">№</th>
+    <th scope="col">Название</th>
+    <th scope="col">Номер</th>
+    <th scope="col">Цена,BYN</th>
+    <th scope="col">Месяц</th>
+    <th scope="col">Год издания</th>
+    <th scope="col">Количество страниц</th>
+    <th scope="col">Дата создания</th>
+    <th scope="col">Дата изменения</th>
+    <th scope="col">Удаление</th>
+    <th scope="col">Обновление</th>
+    </tr>
+  </thead>
+  <tbody>
+  {%for obj in object_list %}
+    <tr>
+    <td><a href='/journal/{{ obj.pk }}/'>{{ obj.pk }}</a></td> 
+    <td> {{ obj.name }}</td>
+    <td> {{ obj.number }} </td>
+    <td> {{ obj.price }} </td>
+    <td> {{ obj.month }} </td>
+    <td> {{ obj.year }} </td>
+    <td> {{ obj.page }} </td>
+    <td> {{ obj.created }} </td>
+    <td> {{ obj.updated }} </td>
+    <td><a href='/journal/delete/{{ obj.pk }}/'><i class="fas fa-trash-alt"></i></a></td>
+    <td><a href='/journal/update/{{ obj.pk }}/'><i class="fas fa-edit"></i></a></td>
+    </tr> 
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock body %} 

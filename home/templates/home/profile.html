@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %} 
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block body %}
+<h1>Добро пожаловать {{ user.get_full_name }}! </h1>
+<ul>
+    <li> <b>Имя пользователя</b>: {{user.username}} </li>
+    <li> <b>Имя</b>: {{user.first_name}} </li>
+    <li> <b>Фамилия</b>: {{user.last_name}} </li>
+    <li> <b>Email</b>: {{user.email}} </li>
+    <li> <b>Дата рождения</b>: {{user.profile.date_of_birth}} </li>
+    <li> <b>Местожительство</b>: {{user.profile.location}} </li>
+</ul>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Поиск
+{% endblock title %}
+
+{% block body %}
+<div class= "container">
+    <div class="row">
+        <div class = "col-sm-12">
+            <h4><center>Найденные результаты: {{found.count}} </center></h4>
+            {% for book in found %}
+                <p><img src="{{ book.cover.url }}" width = '50px'> <a style="color: black" href='/book/{{ book.pk }}/'><small>"{{book.name}}" {{book.author}}</small> </a></p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock body %} 

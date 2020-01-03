@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Выбранная серия
+{% endblock title %}
+
+{% block body %}
+    <h2 class="p-3 mb-2 bg-light text-info"><center>Серия</center></h2>
+    <h3> {{ object.name }} </h3>
+    <pre><small>{{object.descr }}</small></pre>
+{% endblock body %} 

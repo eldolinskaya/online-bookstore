@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Список переплётов
+{% endblock title %}
+
+{% block body %}
+<h1><center>Переплёт</center></h1>
+<center>{% if perms.type_covers.add_type_cover %}<a style="color: rgb(47, 135, 170)" href='/type-cover/create/'><i class="fas fa-plus-circle"></i></a>{% endif %}</center>
+<table class="table table-striped">
+        <thead class="table table-info">
+          <tr>
+          <th scope="col">Наименование</th>
+          <th scope="col">Описание</th>
+          {% if perms.type_covers.delete_type_cover %}<th scope="col">Удаление</th>{% endif %}
+          {% if perms.type_covers.change_type_cover %}<th scope="col">Обновление</th>{% endif %}
+          </tr>
+        </thead>
+    <tbody>
+    {%for obj in object_list %}
+          <tr>
+          <td><a style="color: black" href='/type-cover/{{ obj.pk }}/'>{{ obj.name }}</a></td>
+          <td>{{ obj.descr|truncatewords:30 }}</td>
+          {% if perms.type_covers.delete_type_cover %}<td><a style="color: rgb(47, 135, 170)" href='/type-cover/delete/{{ obj.pk }}/'><i class="fas fa-trash-alt"></i></a></td>{% endif %}
+          {% if perms.type_covers.change_type_cover %}<td><a style="color: rgb(47, 135, 170)" href='/type-cover/update/{{ obj.pk }}/'><i class="fas fa-edit"></i></a></td>{% endif %}
+          </tr>   
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock body %} 

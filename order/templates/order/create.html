@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+{% block title %}
+Оформить заказ
+{% endblock title %}
+
+{% block body %}
+    <h2 class="p-3 mb-2 bg-light text-info"><center>Оформить заказ</center></h2>
+    {{ action }}
+    <form action="{% url 'order:create' %}" method="POST">
+        <div class="container px-lg-6">
+            <div class="row mx-lg-n6">
+              <div class="col bg-white">
+                <p> <small> Сумма заказа: <br> {{ object.price }} BYN </small></p>
+              </div>
+              <div class="col bg-bg-white">
+                <p> <small> Стоимость доставки: <br> {{ object.delivery_price }} BYN </small></p>
+              </div> 
+            </div>
+        </div>
+    <small>
+        {% csrf_token %}
+      <div class="container px-lg-6">
+        <div class="row mx-lg-n6">
+          <div class="col bg-white">
+            {{form.user_name|as_crispy_field}}
+          </div>
+          <div class="col bg-bg-white">
+            {{form.buying_type|as_crispy_field}}
+          </div> 
+          </div>
+          <div class="row mx-lg-n6">
+          <div class="col bg-white">
+            {{form.mobile_number|as_crispy_field}}
+          </div>
+          <div class="col bg-white">
+            {{form.delivery_address|as_crispy_field}}
+          </div>
+        </div>
+        <div>
+            {{form.comments|as_crispy_field}}
+          </div>
+        <div>
+            {{form.e_mail|as_crispy_field}}
+          </div>
+      </div>
+    <button type='submit' class="btn btn-outline-info btn-sm">Оформить</button></small>
+    </form>
+{% endblock body %}

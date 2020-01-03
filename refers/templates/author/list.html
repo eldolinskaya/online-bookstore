@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Список авторов
+{% endblock title %}
+
+{% block body %}
+<h1><center>Авторы</center></h1>
+<center>{% if perms.authors.add_author %}<a style="color: rgb(47, 135, 170)" href='/author/create/'><i class="fas fa-plus-circle"></i></a>{% endif %}</center>
+<table class="table table-striped">
+        <thead class="table table-info">
+          <tr>
+          <th scope="col">Наименование</th>
+          <th scope="col">Биография</th>
+          {% if perms.authors.delete_author %}<th scope="col">Удаление</th>{% endif %}
+          {% if perms.authors.change_author %}<th scope="col">Обновление</th>{% endif %}
+          </tr>
+        </thead>
+    <tbody>
+    {%for obj in object_list %}
+          <tr>
+          <td> <a style="color: black" href='/author/{{ obj.pk }}/'>{{ obj.name }}</a></td>
+          <td> {{ obj.descr|truncatewords:30 }}</td>
+          {% if perms.authors.delete_author %}<td><a style="color: rgb(47, 135, 170)" href='/author/delete/{{ obj.pk }}/'><i class="fas fa-trash-alt"></i></a></td>{% endif %}
+          {% if perms.authors.change_author %}<td><a style="color: rgb(47, 135, 170)" href='/author/update/{{ obj.pk }}/'><i class="fas fa-edit"></i></a></td>{% endif %}
+          </tr>   
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock body %} 

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Выбранный журнал
+{% endblock title %}
+
+{% block body %}
+    <h2>{{object.name }} № {{object.number }}, {{object.year }}</h2>
+<table class="table table-borderless">
+  <thead>
+    <tr>
+    <th scope="col">Название</th>
+    <th scope="col">Номер</th>
+    <th scope="col">Цена,BYN</th>
+    <th scope="col">Месяц</th>
+    <th scope="col">Год издания</th>
+    <th scope="col">Количество страниц</th>
+    <th scope="col">Доступно к заказу</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <td> {{ object.name }}</td>
+    <td> {{ object.number }} </td>
+    <td> {{ object.price }} </td>
+    <td> {{ object.month }} </td>
+    <td> {{ object.year }} </td>
+    <td> {{ object.page }} </td>
+    <td> {{ object.available }} </td>
+    </tr> 
+  </tbody>
+</table>
+{% endblock body %} 

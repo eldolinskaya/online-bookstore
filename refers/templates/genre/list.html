@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Список жанров
+{% endblock title %}
+
+{% block body %}
+<h1><center>Жанры</center></h1>
+<center>{% if perms.genres.add_genre %}<a style="color: rgb(47, 135, 170)" href='/genre/create/'><i class="fas fa-plus-circle"></i></a>{% endif %}</center>
+<table class="table table-striped">
+        <thead class="table table-info">
+          <tr>
+          <th scope="col">Наименование</th>
+          <th scope="col">Описание</th>
+          {% if perms.genres.delete_genre %}<th scope="col">Удаление</th>{% endif %}
+          {% if perms.genres.change_genre %}<th scope="col">Обновление</th>{% endif %}
+          </tr>
+        </thead> 
+    <tbody>
+          {%for obj in object_list %}
+          <tr>
+          <td> <a style="color: black" href='/genre/{{ obj.pk }}/'> {{ obj.name }} </a></td>
+          <td> {{ obj.descr|truncatewords:30 }}</td>
+          {% if perms.genres.delete_genre %}<td><a style="color: rgb(47, 135, 170)" href='/genre/delete/{{ obj.pk }}/'><i class="fas fa-trash-alt"></i></a></td>{% endif %}
+          {% if perms.genres.change_genre %}<td><a style="color: rgb(47, 135, 170)" href='/genre/update/{{ obj.pk }}/'><i class="fas fa-edit"></i></a></td>{% endif %}
+          </tr>
+          {% endfor %}
+    </tbody>
+</table>
+{% endblock body %} 

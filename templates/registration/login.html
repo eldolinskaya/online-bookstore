@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %} 
+
+{% block title %}Log-in{% endblock %}
+
+{% block body %}
+<h2>Пожалуйста, введите ваши данные:</h2>
+{% if form.errors %}
+<p>Ваше имя пользователя и пароль не совпадают. Пожалуйста, введите данные повторно.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Вы не имеет доступа к данной странице. </p>
+    {% else %}
+    <p>Пожалуйста, войдите в систему для просмотра данной страницы.</p>
+    {% endif %}
+{% endif %}
+
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+<div class="container">
+    <div class="row">
+        <div class="col bg-white">
+            {{form.username|as_crispy_field}}
+        </div>
+        <div class="col bg-bg-white">
+            {{form.password|as_crispy_field}}
+        </div> 
+    </div>
+</div>
+
+
+<input type="submit" class="btn btn-outline-info btn-sm" value="Войти">
+<input type="hidden" name="next" value="{{ next }}">
+</form>
+
+<p><a href="{% url 'password_reset' %}"><small>Восстановить пароль?</small></a></p>
+
+{% endblock %}

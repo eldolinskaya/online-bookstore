@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+{% load static %} 
+<!-- Bootstrap v4.x stylesheet -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<!-- bootstrap css theme -->
+<link rel="stylesheet" href="css/theme.bootstrap_4.css">
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.tablesorter.js"></script>
+<script src="js/jquery.tablesorter.widgets.js"></script>
+
+<!-- pager plugin -->
+<link rel="stylesheet" href="css/jquery.tablesorter.pager.css">
+<script src="js/jquery.tablesorter.pager.js"></script>
+<style>
+.tablesorter-pager .btn-group-sm .btn {
+  font-size: 1.2em; /* make pager arrows more visible */
+}
+</style>
+
+{% block title %}
+Список книг
+{% endblock title %}
+
+{% block body %}
+<h1>Книги</h1>
+<center>{% if perms.books.add_book %}<a style="color: rgb(47, 135, 170)" href='/book/create/'><i class="fas fa-plus-circle"></i></a>{% endif %}</center>
+<br>
+<table class="table ">
+  <thead class="table">
+    <tr>
+      <th scope="col" >Обложка</th>
+      <th scope="col" >Название</th>
+      <th scope="col">Автор</th>
+      <th scope="col">Цена <small>BYN</small></th>
+      <th scope="col">Жанр</th>
+      <th scope="col">Рейтинг</th>
+      {% if perms.books.delete_book %}<th scope="col">Удаление</th>{% endif %}
+      {% if perms.books.change_book %}<th scope="col">Обновление</th>{% endif %}
+    </tr>
+  </thead>
+  <tbody>
+  {%for obj in object_list %}
+    <tr>
+      <td> <img src="{{ obj.cover.url }}" width = '50px'> </td>
+      <td> <small><a style="color: black;" href='/book/{{ obj.pk }}/'>{{ obj.name }}</a></small></td>
+      <td> <small>{{ obj.author }} </small></td>
+      <td><a class="nav-link" style="color: rgb(47, 135, 170)" href="{% url 'cart:add' obj.pk %}">{{ obj.price }} <i class="fab fa-opencart"></i></a></td>
+      <td> <small>{% for genre in obj.genre.all %} {{genre.name}} {% endfor %}</small> </td> 
+      <td> {{ obj.rating }} </td>
+      {% if perms.books.delete_book %}<td><a style="color: rgb(47, 135, 170)" href='/book/delete/{{ obj.pk }}/'><i class="fas fa-trash-alt"></i></a></td>{% endif %}
+      {% if perms.books.change_book %}<td><a style="color: rgb(47, 135, 170)" href='/book/update/{{ obj.pk }}/'><i class="fas fa-edit"></i></a></td>{% endif %}
+    </tr>    
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock body %} 

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Список серий
+{% endblock title %}
+
+{% block body %}
+<h1><center>Серии</center></h1>
+<center>{% if perms.series.add_serie %}<a style="color: rgb(47, 135, 170)" href='/serie/create/'><i class="fas fa-plus-circle"></i></a>{% endif %}</center>
+<table class="table table-striped">
+        <thead class="table table-info">
+          <tr>
+          <th scope="col">Наименование</th>
+          <th scope="col">Описание</th>
+          {% if perms.series.delete_serie %}<th scope="col">Удаление</th>{% endif %}
+          {% if perms.genres.change_serie %}<th scope="col">Обновление</th>{% endif %}
+          </tr>
+        </thead>
+    <tbody>
+    {%for obj in object_list %}
+          <tr>
+          <td><a style="color: black" href='/serie/{{ obj.pk }}/'>{{ obj.name }}</a></td>
+          <td> {{ obj.descr|truncatewords:30 }}</td>
+          {% if perms.series.delete_serie %}<td><a style="color: rgb(47, 135, 170)" href='/serie/delete/{{ obj.pk }}/'><i class="fas fa-trash-alt"></i></a></td>{% endif %}
+          {% if perms.series.change_serie %}<td><a style="color: rgb(47, 135, 170)" href='/serie/update/{{ obj.pk }}/'><i class="fas fa-edit"></i></a></td>{% endif %}
+          </tr>   
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock body %} 

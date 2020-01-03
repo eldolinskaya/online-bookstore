@@ -1,0 +1,18 @@
+    def get_success_url(self):
+        #user = self.request.user
+        #self.object.user = user
+        #self.object.save()
+        # send mail() текущий юзер в self.request
+        # можно сделать через signals - > берем post signals
+        # если редактирование происходит из нескольких  мест, заказы появляются с другого источника ->надо влезть еще туда, 
+        # т.е в каждом месте поставить перехватчик
+        # сигналы можно прописать в модели , например pre-save -> перед сохранением в БД
+        # оброботчик сигнала - функция
+        # минус сигналов - нет self.request , те не достать текущего юзера и текущую сессию
+        
+        # Добавить отправку письма по email send_mail() self.request.user
+        send_mail('Спасибо за покупку!',' Ваш заказ обрабатывается нашими специалистамии будет доставлен согласно указанному Вами адресу.','bookstore.manager@yandex.ru', ['elen_dolinskaya@mail.ru'])
+        #удаляем корзину и заказ из сессии
+        self.request.session['order_id'] = None
+        self.request.session['cart_id'] = None
+        return super().get_success_url()

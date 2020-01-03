@@ -1,0 +1,94 @@
+{% load static %}
+{% load staticfiles %} 
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+
+    <!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <!-- <link rel="stylesheet" href="{% static 'starter-template.css' %}" > не понимаю обязательно или нет -->
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-info fixed-top">
+  <a class="navbar-brand" style="color: floralwhite"><i class="fas fa-book"></i>Bookstore</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    {% include 'main_menu.html' %}
+    <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="GET">
+      <input class="form-control mr-sm-2" type="text" placeholder="Книги, авторы" name = "q" aria-label="Search">
+      <button class="btn btn-info my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+    
+    <ul class="nav navbar-nav navbar-right">
+    {% if request.user.is_authenticated %}
+      <li class="nav-item"><a class="nav-link" href="{% url "account" %}"><i class="fas fa-user-astronaut"></i> {{ request.user.first_name }} </a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'cart:list' %}"><i class="fab fa-opencart"></i></a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url "logout" %}"><i class="fas fa-sign-in-alt"></i>Выйти</a></li>
+    {% else %}
+      <li class="nav-item"><a class="nav-link" href="{% url "login" %}"><i class="fas fa-sign-in-alt"></i>Войти</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'cart:list' %}"><i class="fab fa-opencart"></i></a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url "register" %}"><i class="fas fa-sign-in-alt"></i>Регистрация</a></li>
+    </ul>
+    {% endif %}
+    
+  </div>
+</nav>
+
+<main role="main" class="container">
+
+<br /> <br /> <br /> <br /> 
+{% block body %}
+{% endblock body %}
+<br /> <br /> <br /> <br /> <br /> <br /> 
+
+<nav class="navbar fixed-bottom navbar-expand navbar-light bg-light py-0" >
+    <div class="navbar-text m-auto">
+      Made with <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>️ by dolinskaya
+      <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="https://medium.com/@elenadolinskaya"><i class="fab fa-medium" aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="https://github.com/eldolinskaya"><i class="fab fa-github" aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="https://t.me/EliDoli"><i class="fab fa-telegram" aria-hidden="true"></i></a>
+          </li>
+      </ul>
+    </div>
+  </nav>
+</main><!-- /.container -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

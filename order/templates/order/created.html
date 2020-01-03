@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Спасибо за заказ{% endblock %}
+
+{% block body %}
+{% if request.user.is_authenticated %}
+    <h1>Спасибо за заказ {{user.first_name}}! </h1>
+{% else %}
+    <h1>Спасибо за заказ! </h1>
+{% endif %}
+    <p>Ваш заказ успешно оформлен. </p>
+{% endblock %}

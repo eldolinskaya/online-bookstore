@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block title %}
+Выбранная книга
+{% endblock title %}
+
+{% block body %}
+<h2 class="text-info"> {{object.author }} "{{object.name }}"</h2>
+
+<div class="container px-lg-6">
+    <div class="row mx-lg-n6">
+      <div class="col py-3 px-lg-4 bg-white">
+        <img src="{{ object.cover.url }}" width = '300px'> 
+      </div>
+      <div class="col py-3 px-lg-4 bg-bg-white">
+          <h3 class="text-muted"> Рейтинг Bookstore: {{object.rating }} <i class="far fa-star"></i> </h2>
+          <li> <b>Жанр</b>: {% for genre in object.genre.all %} {{genre.name}} {% endfor %} </li>
+          <li> <b>Серия</b>: {{ object.serie }} </li>
+          <li> <b>Дата издания</b>: {{ object.year }} </li>
+          <li> <b>Количество страниц</b>: {{ object.page }} </li>
+          <li> <b>Переплёт</b>: {{ object.type_cover }} </li>
+          <li> <b>Формат</b>: {{ object.book_format }} </li>
+          <li> <b>ISBN</b>: {{ object.book_ISBN }} </li>
+          <li> <b>Вес,гр</b>: {{ object.weight_gram }} </li>
+          <li> <b>Возрастные ограничения</b>: {{ object.age_restrictions }} </li>
+          <li> <b>Издательство</b>: {{ object.publishing_house }} </li>
+          <li> <b>Доступно к заказу</b>: {% if object.available == True %} Да {% elif object.available == False %} Под заказ {% endif %}</li>
+          <li> <b>Издательство</b>: {{ object.publishing_house }} </li>
+          <a class="nav-link" style="color: rgb(47, 135, 170)" href="{% url 'cart:add' object.pk %}"> {{ object.price }} BYN <i class="fab fa-opencart"></i></a>
+          {% if perms.books.delete_book %}<td><a style="color: rgb(47, 135, 170)" href='/book/delete/{{ object.pk }}/'> <i class="fas fa-trash-alt"></i></a></td>{% endif %}
+          {% if perms.books.change_book %}<td><a style="color: rgb(47, 135, 170)" href='/book/update/{{ object.pk }}/'> <i class="fas fa-edit"></i></a></td>{% endif %}
+      </div> 
+    </div>
+</div>
+{% endblock body %} 

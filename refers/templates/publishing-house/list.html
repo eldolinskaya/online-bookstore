@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Список издательств
+{% endblock title %}
+
+{% block body %}
+<h1><center>Издательства</center></h1>
+<center>{% if perms.publishing_houses.add_publishing_house %}<a style="color: rgb(47, 135, 170)" href='/publishing-house/create/'><i class="fas fa-plus-circle"></i></a>{% endif %}</center>
+<table class="table table-striped">
+        <thead class="table table-info">
+          <tr>
+          <th scope="col">Наименование</th>
+          <th scope="col">Описание</th>
+          {% if perms.publishing_houses.delete_publishing_house %}<th scope="col">Удаление</th>{% endif %}
+          {% if perms.publishing_houses.change_publishing_house %}<th scope="col">Обновление</th>{% endif %}
+          </tr>
+        </thead>
+    <tbody>
+    {%for obj in object_list %}
+          <tr>
+          <td><a style="color: black" href='/publishing-house/{{ obj.pk }}/'>{{ obj.name }}</a></td> 
+          <td> {{ obj.descr|truncatewords:30 }}</td>
+          {% if perms.publishing_houses.delete_publishing_house %}<td><a style="color: rgb(47, 135, 170)" href='/publishing-house/delete/{{ obj.pk }}/'><i class="fas fa-trash-alt"></i></a></td>{% endif %}
+          {% if perms.publishing_houses.change_publishing_house %}<td><a style="color: rgb(47, 135, 170)" href='/publishing-house/update/{{ obj.pk }}/'><i class="fas fa-edit"></i></a></td>{% endif %}
+          </tr>   
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock body %} 
